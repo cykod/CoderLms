@@ -1,0 +1,66 @@
+== WebLMS2
+
+
+https://keen.io/
+
+
+Big Changes
+
+* Support for Multiple Courses
+* Support for videos and interactive lessons
+* Ability to comment on assignments
+* Ability to save work in interactive lessons
+
+
+Courses
+Users
+
+
+UserCourses
+
+Keen.io for data
+
+Lessons - Homework + In-class
+ - Name
+ - Due Date
+
+LessonAssignments 
+ - Either a URL (with content HTML5 Validated)
+ - Or an uploaded file
+
+LessonPage
+ - Content for a single page of a lesson
+ - URL
+ 
+ Page Types:
+  0. Content (Slide)
+  1. Editor (HTML) - Can Run the editor in half-page / full page - ACE Editor
+  2. Quiz
+  3. Video
+  4. Assignment - shows the assignments 
+
+LessonPageFile
+ - A pre-written file - can either be editable or not
+
+UserLessonPageFile
+ - A users version of that page
+
+LessonPageQuestion - quiz question for a single page
+
+
+Dashboard example with drawer
+
+
+Page Setup
+Course Name 			    Previous Page    -    Next Page 
+
+Page Name                                [ Full | Split ]       Run
+
+File Drawer                             
+Introduction
+index.html
+style.css
+style.js
+
+Url is:
+/web2-2015/lessons/7/pages/6/:username/index.html
