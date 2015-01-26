@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   has_many :user_course_session
   has_many :course_sessions, through: :user_course_session
+  has_many :user_assignments
   
   def self.fetch(auth_hash)
     user = User.where(uid: auth_hash.uid).first || User.new

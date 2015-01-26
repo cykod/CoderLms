@@ -51,7 +51,11 @@ class PageFile < ActiveRecord::Base
   end
 
   def set_body_html
-    self.body_html = self.body
+    if self.extension == "md"
+      self.body_html = Kramdown::Document.new(self.body).to_html
+    else
+      self.body_html = self.body
+    end
     true
   end
 

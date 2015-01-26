@@ -23,15 +23,19 @@ class LessonsController < CourseBaseController
     @lesson.add_page! if !@lesson.page(1)
 
     redirect_to session_lesson_page_path(@course_session,@lesson.position,1)
-
   end
 
   def edit
+    @lesson = @course_session.lesson(params[:id].to_s)
 
+    render action: "new"
   end
 
   def update
+    @lesson = @course_session.lesson(params[:id].to_s)
 
+    @lesson.update_attributes(lesson_params);
+    redirect_to session_path(@course_session)
   end
 
   def destroy

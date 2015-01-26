@@ -25,6 +25,11 @@ Control-R or Apple
 - Write the first bit of slide CSS
 
 
+Add Homework Submission in
+Add Validation in
+
+Add html body validation
+
 
 ===========
 Later

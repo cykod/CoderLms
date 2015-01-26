@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     end
 
   end
+
+  resources :user_assignments
+  
   
   
   root to: "home#index"

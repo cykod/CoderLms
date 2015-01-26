@@ -3,6 +3,7 @@ class Lesson < ActiveRecord::Base
 
   belongs_to :course
   has_many :pages, -> { order("position") }
+  has_many :lesson_assignments
 
   validates :course, presence: true
 
@@ -11,6 +12,8 @@ class Lesson < ActiveRecord::Base
 
   scope :visible, -> { where("visible_starting >= ?",Time.zone.now.to_date) }
   scope :by_latest, -> { order("position DESC") }
+
+  before_save :set_body
 
   def page(position)
     self.pages.where(position: position).first
@@ -22,6 +25,9 @@ class Lesson < ActiveRecord::Base
 
   protected
 
+  def set_body
+    self.body_html = Kramdown::Document.new(self.body).to_html
+  end
 
 
 end

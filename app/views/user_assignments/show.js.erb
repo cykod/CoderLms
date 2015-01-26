@@ -1,0 +1,1 @@
+$("#lesson_assignment-<%= @lesson_assignment.id %>").replaceWith("<%= escape_javascript render partial: 'user_assignment', locals: { lesson_assignment: @lesson_assignment} %>");

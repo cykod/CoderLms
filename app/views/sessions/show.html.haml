@@ -4,9 +4,21 @@
     - @course_session.lessons.each do |lesson|
       .panel.panel-primary
         .panel-heading
+          - if admin?
+            .pull-right
+              = link_to "edit", edit_session_lesson_path(@course_session,lesson.position), class: 'btn btn-xs btn-default'
           %h4.panel-title= lesson.name
         .panel-body
-          = link_to "Open Lesson", session_lesson_path(@course_session,lesson), class: 'btn btn-primary'
+          = lesson.body_html.html_safe
+          - if lesson.pages.count > 0 || admin?
+            = link_to "Open Lesson", session_lesson_path(@course_session,lesson.position), class: 'btn btn-primary'
+          %br
+          %br
+          %ul.list-group
+            - lesson.lesson_assignments.each do |lesson_assignment|
+              = render partial: '/user_assignments/user_assignment', locals: { lesson_assignment: lesson_assignment}
+          
+          
           
     - if @course_session.admin?
       .panel.panel-default
