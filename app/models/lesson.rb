@@ -10,7 +10,7 @@ class Lesson < ActiveRecord::Base
   acts_as_list scope: :course
   has_permalink -> { Lesson.where(course_id: self.course_id) }
 
-  scope :visible, -> { where("visible_starting >= ?",Time.zone.now.to_date) }
+  scope :visible, -> { where("visible_starting <= ?",Time.zone.now.to_date) }
   scope :by_latest, -> { order("position DESC") }
 
   before_save :set_body
