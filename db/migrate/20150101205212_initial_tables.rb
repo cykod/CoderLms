@@ -19,21 +19,33 @@ class InitialTables < ActiveRecord::Migration
       t.string :name
     end
 
-    create_table "user_courses" do |t|
+    create_table "course_sessions" do |t|
+      t.string :name
+      t.string :permalink
+      t.integer :course_id
+      t.boolean :open, default: true
+      t.string :code
+    end
+
+    create_table "user_course_sessions" do |t|
       t.integer :user_id
       t.integer :course_id
+      t.integer :course_session_id
       t.boolean :admin, default: false
     end
 
-    add_index :user_courses, :user_id
-    add_index :user_courses, :course_id
+    add_index :user_course_sessions, :user_id
+    add_index :user_course_sessions, :course_id
 
     create_table "lessons" do |t|
       t.integer :course_id
       t.string :name
-      t.integer :number
+      t.integer :position
       t.string :permalink
       t.date :visible_starting
+      t.date :due_date
+      t.text :body
+      t.text :body_html
     end
 
     add_index :lessons, :course_id
@@ -42,8 +54,7 @@ class InitialTables < ActiveRecord::Migration
       t.integer :course_id
       t.integer :lesson_id
       t.string :name
-      t.string :permalink
-      t.integer :number
+      t.integer :position
       t.string :page_type
     end
 
@@ -54,7 +65,9 @@ class InitialTables < ActiveRecord::Migration
       t.integer :page_id
       t.string :name
       t.string :extension
+      t.integer :position
       t.boolean :editable, default: false
+      t.attachment :file
       t.text :body
       t.text :body_html
     end
@@ -74,6 +87,7 @@ class InitialTables < ActiveRecord::Migration
 
     create_table "user_page_files" do |t|
       t.integer :user_id
+      t.integer :user_page_id
       t.integer :page_file_id
       t.text :body
       t.text :body_html
@@ -82,5 +96,25 @@ class InitialTables < ActiveRecord::Migration
     add_index :user_page_files, :user_id
     add_index :user_page_files, :page_file_id
 
+
+    create_table :lesson_assignments do |t|
+      t.integer :lesson_id
+      t.text :body
+      t.text :body_html
+      t.boolean :requires_url
+      t.boolean :requires_file
+      t.boolean :validate_url
+    end
+
+    create_table :user_assignments do |t|
+      t.integer :lesson_id
+      t.integer :lesson_assignment_id
+      t.attachment :file
+      t.string :url
+      t.text :validation_errors
+      t.boolean :approved
+      t.boolean :late
+      t.timestamps
+    end
   end
 end

@@ -1,0 +1,22 @@
+.navbar-header
+  %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+    %span.icon-bar
+    %span.icon-bar
+    %span.icon-bar
+
+  %a.btn.navbar-brand{href: session_path(@course_session)}
+    %span.glyphicon.glyphicon-chevron-up
+    = @lesson.name
+.navbar-collapse.collapse
+  .pull-right
+    - if !@page.first?
+      %a.btn.btn-default.navbar-btn{href: page_path(@page.position - 1)}
+        %span.glyphicon.glyphicon-chevron-left
+        prev
+    - if !@page.last?
+      %a.btn.btn-default.navbar-btn{href: page_path(@page.position + 1)}
+        next
+        %span.glyphicon.glyphicon-chevron-right
+    - elsif admin?
+      %a.btn.btn-default.navbar-btn{href: pages_path, data: { method: "post" }}
+        new page

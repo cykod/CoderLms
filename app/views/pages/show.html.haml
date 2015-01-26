@@ -1,0 +1,38 @@
+= simple_form_for @page, url: page_save_path(@page), html: { class: 'form-inline', id: "js-editor" } do |f|
+  .panel.panel-default
+    .panel-heading
+      .pull-right
+        .btn-group.js-split-selector{role: "group"}
+          %button.btn.btn-default.active{type:"button", data: { value: "split" }} Split
+          %button.btn.btn-default{type:"button", data: { value: "full" }} Full
+        &nbsp;
+        .btn-group.js-run{role: "group"}
+          %button.btn.btn-success{href:"#", type: "submit"}= admin? ? "Save" : "Run Code"
+          - #%button.btn.btn-success{href:"#"}
+          - #%span.glyphicon.glyphicon-new-window
+      - if admin?
+        = f.input :name, label: false, placeholder: "Name"
+        = f.input :page_type, as: :select, collection: Page.page_types, label: false
+      - else
+        %h2.panel-title   
+          = @page.name
+      .clear
+    .panel-body
+      .code-sidebar.js-files
+        %ul.nav.nav-pills.nav-stacked
+          - @user_page.page_files.each do |file|
+            = render partial: 'page_file', locals: { page_file: file }
+          - if admin?
+            %li.js-add-file-container{role:"presentation"}
+              %a.js-add-file{href: new_session_lesson_page_page_file_path(@course_session, @lesson.position, @page.position), data: { remote: true }} + Add a File
+      .code-wrapper
+        .code-area.js-code-area
+          .editor-area
+            #js-editor-code.code-editor
+          .result-area
+        .clear
+      .clear
+            
+  :javascript
+    LessonEditor.init();
+

@@ -1,0 +1,17 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %link{:href => "assets/ico/favicon.png", :rel => "shortcut icon"}/
+    %title= @course_session.name
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tag 
+  %body
+    .navbar-wrapper 
+      .navbar.navbar-inverse.navbar-fixed-top
+        .container-fluid
+          = render partial: '/layouts/lesson_nav'
+    .container-fluid
+      = yield

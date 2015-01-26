@@ -1,0 +1,16 @@
+%li.js-file-container{role:"presentation", data: { page_file: page_file.id  }}
+  %a.js-file{data: { type: page_file.mode, editable: admin? || page_file.editable, displayable: page_file.displayable, url: user_page_file_path(page_file)}, href: "#", role: "button"}
+    = page_file.name
+    - if admin? || page_file.editable?
+      = hidden_field_tag "page[page_files_attributes][][id]", page_file.id
+      = text_area_tag "page[page_files_attributes][][body]", page_file.body_resolved, class: "hidden-body js-body"
+  - if admin?
+    %span.edit-controls.glyphicon.glyphicon-cog{data: { toggle: "dropdown" }}
+    %ul.dropdown-menu{role: "menu"}
+      %li
+        %a{href:file_path(page_file,"_up"), data: { remote: true, method: "put" }} Move Up
+      %li
+        %a{href:file_path(page_file,"_down"), data: { remote: true, method: "put" }} Move Down
+      %li.divider
+      %li
+        %a{href: file_path(page_file), data: { method: "delete", remote: true }} Delete

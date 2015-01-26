@@ -9,53 +9,32 @@ Changes from WebLMS
 * Ability to comment on assignments
 * Ability to save work in interactive lessons
 
+Control-S or Apple-S - save and run
 
-    Courses
-    Users
+Control-N, Control-P - next and previous file
 
-    UserCourses
-
-    Lessons - Homework + In-class
-     - Name
-     - Due Date
-
-    LessonAssignments 
-     - Either a URL (with content HTML5 Validated)
-     - Or an uploaded file
-
-    LessonPage
-     - Content for a single page of a lesson
-     - URL
-     
-     Page Types:
-      0. Content (Slide)
-      1. Editor (HTML) - Can Run the editor in half-page / full page - ACE Editor
-      2. Quiz
-      3. Video
-      4. Assignment - shows the assignments 
-
-    LessonPageFile
-     - A pre-written file - can either be editable or not
-
-    UserLessonPageFile
-     - A users version of that page
-
-    LessonPageQuestion - quiz question for a single page
+Run either the currently selected HTML file or 
 
 
-    Dashboard example with drawer
+Control-R or Apple
+
+- Save User Page Content
+- Show user page content
+
+- For slide pages, show just the body html of the first slide
+- Write the first bit of slide CSS
 
 
-    Page Setup
-    Course Name 			    Previous Page    -    Next Page 
 
-    Page Name                                [ Full | Split ]       Run
+===========
+Later
+===========
 
-    File Drawer                             
-    Introduction
-    index.html
-    style.css
-    style.js
+- Add ability to record audio + video that can play in the courner of a slide
 
-    Url is:
-    /web2-2015/lessons/7/pages/6/:username/index.html
+- Add ability to add images as files in the sidebar
+
+
+
+
+

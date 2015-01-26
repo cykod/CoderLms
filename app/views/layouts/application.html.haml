@@ -4,45 +4,19 @@
     %meta{:charset => "utf-8"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %link{:href => "assets/ico/favicon.png", :rel => "shortcut icon"}/
-    %title Web LMS
+    %title Coder LMS
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tag 
   %body
-    .navbar.navbar-inverse.navbar-fixed-top
-      .container
-        .navbar-header
-          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.navbar-brand{:href => "#"} Web LMS
-        .navbar-collapse.collapse
-          - if false
-            %ul.nav.navbar-nav
-              %li.active
-                %a{:href => root_path} Classes
-              %li
-                = link_to "Syllabus", asset_path("syllabus2014.pdf")
-              %li
-                = link_to "JS Cheatsheet", asset_path("js-cheatsheet.pdf")
-          - if current_user
-            %ul.nav.navbar-nav.navbar-right
-              %li.dropdown
-                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  = current_user.name
-                  %b.caret
-                %ul.dropdown-menu
-                  %li
-                    %a{:href => ""} Edit Account
-                  %li.divider
-                  %li
-                    = link_to "Logout", sessions_path, data: {  method: "delete" }
-          - else
-            %ul.nav.navbar-nav.navbar-right
-              %li
-                =link_to "Sign in with GitHub", '/auth/github', class:"icon icon-github"
-    = yield
-    .container 
+    .navbar-wrapper 
+      .navbar.navbar-inverse.navbar-fixed-top
+        .container
+          = render partial: '/layouts/main_nav'
+    .container
+      - if flash[:notice]
+        .alert.alert-warning{role: "alert"}
+          = flash[:notice]
+      = yield
       %footer
         %hr/

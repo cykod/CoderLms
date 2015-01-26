@@ -5,3 +5,13 @@ end
 
 OmniAuth.config.logger = Rails.logger
 
+
+OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+      :provider => 'github',
+      :uid => '123545',
+      info: {
+        nickname: "svend",
+        name: "Svend",
+        email: "svend@test.com"
+      }
+    })

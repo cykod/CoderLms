@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -46,6 +47,17 @@ gem 'bootstrap-sass'
 gem "kaminari"
 gem 'ace-rails-ap'
 
+gem 'littlebigadmin',  github: 'cykod/littlebigadmin', branch: "master"
+
+gem 'bootstrap-datepicker-rails'
+gem "american_date"
+
+gem 'rails-assets-underscore'
+gem 'rails-assets-backbone'
+
+gem 'acts_as_list'
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -55,6 +67,11 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem "spring-commands-rspec"
+  gem "guard"
+  gem "guard-rspec", require: false
+
+  gem "factory_girl_rails"
 
   gem 'rspec'
   gem 'rspec-rails'

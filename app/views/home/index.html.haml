@@ -1,1 +1,23 @@
-Please Login
+- if !current_user
+  .jumbotron
+    %h1 Please Login with Github 
+    %p If you are in an existing class or have a course code, please login.
+    %p
+      %a.btn.btn-primary.btn-lg{href:"/auth/github"}
+        Login With Github
+- else
+  - current_user.course_sessions.each do |course_session|
+    .panel.panel-primary
+      .panel-heading
+        %h4.panel-title= course_session.name
+      .panel-body
+        = link_to "Open Course", session_path(course_session), class: 'btn btn-primary'
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title New Course Code
+    .panel-body
+      = simple_form_for UserCourseSession.new, url: sessions_path, html: { class: "form-inline" } do |f|
+        = f.input :code, label: false, placeholder: "Enter Course Code"
+        = f.submit "Submit",  class: 'btn btn-primary' 
+
+

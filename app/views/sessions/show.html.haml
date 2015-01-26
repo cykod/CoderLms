@@ -1,0 +1,16 @@
+.row 
+  .col-md-12
+    %h1= @course_session.name
+    - @course_session.lessons.each do |lesson|
+      .panel.panel-primary
+        .panel-heading
+          %h4.panel-title= lesson.name
+        .panel-body
+          = link_to "Open Lesson", session_lesson_path(@course_session,lesson), class: 'btn btn-primary'
+          
+    - if @course_session.admin?
+      .panel.panel-default
+        .panel-heading
+          %h4.panel-title Add a Lesson
+        .panel-body
+          = link_to "Create Lesson", new_session_lesson_path(@course_session), class: 'btn btn-primary'

@@ -1,0 +1,12 @@
+
+
+.row
+  .col-md-6
+    = simple_form_for @lesson, url: session_lessons_path(@course_session), html: { class: 'form-horizontal' } do |f|
+      = f.input :name
+      = f.input :permalink
+      = f.input :visible_starting, as: :string, input_html: { data: { provide: "datepicker" }}
+      = f.input :due_date, as: :string, input_html: { data: { provide: "datepicker" }}
+      = f.input :body
+      = f.submit "Submit"
+

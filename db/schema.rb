@@ -16,28 +16,53 @@ ActiveRecord::Schema.define(version: 20150101205212) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "course_sessions", force: :cascade do |t|
+    t.string  "name"
+    t.string  "permalink"
+    t.integer "course_id"
+    t.boolean "open",      default: true
+    t.string  "code"
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "lesson_assignments", force: :cascade do |t|
+    t.integer "lesson_id"
+    t.text    "body"
+    t.text    "body_html"
+    t.boolean "requires_url"
+    t.boolean "requires_file"
+    t.boolean "validate_url"
   end
 
   create_table "lessons", force: :cascade do |t|
     t.integer "course_id"
     t.string  "name"
-    t.integer "number"
+    t.integer "position"
     t.string  "permalink"
     t.date    "visible_starting"
+    t.date    "due_date"
+    t.text    "body"
+    t.text    "body_html"
   end
 
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
 
   create_table "page_files", force: :cascade do |t|
-    t.integer "lesson_id"
-    t.integer "page_id"
-    t.string  "name"
-    t.string  "extension"
-    t.boolean "editable",  default: false
-    t.text    "body"
-    t.text    "body_html"
+    t.integer  "lesson_id"
+    t.integer  "page_id"
+    t.string   "name"
+    t.string   "extension"
+    t.integer  "position"
+    t.boolean  "editable",          default: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.text     "body"
+    t.text     "body_html"
   end
 
   add_index "page_files", ["page_id"], name: "index_page_files_on_page_id", using: :btree
@@ -46,24 +71,40 @@ ActiveRecord::Schema.define(version: 20150101205212) do
     t.integer "course_id"
     t.integer "lesson_id"
     t.string  "name"
-    t.string  "permalink"
-    t.integer "number"
+    t.integer "position"
     t.string  "page_type"
   end
 
   add_index "pages", ["lesson_id"], name: "index_pages_on_lesson_id", using: :btree
 
-  create_table "user_courses", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "course_id"
-    t.boolean "admin",     default: false
+  create_table "user_assignments", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.integer  "lesson_assignment_id"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.string   "url"
+    t.text     "validation_errors"
+    t.boolean  "approved"
+    t.boolean  "late"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "user_courses", ["course_id"], name: "index_user_courses_on_course_id", using: :btree
-  add_index "user_courses", ["user_id"], name: "index_user_courses_on_user_id", using: :btree
+  create_table "user_course_sessions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+    t.integer "course_session_id"
+    t.boolean "admin",             default: false
+  end
+
+  add_index "user_course_sessions", ["course_id"], name: "index_user_course_sessions_on_course_id", using: :btree
+  add_index "user_course_sessions", ["user_id"], name: "index_user_course_sessions_on_user_id", using: :btree
 
   create_table "user_page_files", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "user_page_id"
     t.integer "page_file_id"
     t.text    "body"
     t.text    "body_html"

@@ -1,0 +1,16 @@
+.modal.fade.new-modal
+  = simple_form_for @file, url: session_lesson_page_page_files_path(@course_session, @lesson.position, @page.position), html: { data: { remote: true } } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button{type: "button", class: "close", data: { dismiss: "modal" }}
+            %span &times;
+          %h4.modal-title Add File
+        .modal-body
+          = f.input :name
+          = f.input :editable
+        .modal-footer
+          %button.btn.btn-default{type:"button", data: { dismiss: "modal" }} Close
+          %button.btn.btn-primary{type:"submit"} Submit
+
+

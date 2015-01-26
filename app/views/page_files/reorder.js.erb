@@ -1,0 +1,8 @@
+(function() {
+  var files = [];
+  <% @page.page_files.each do |page_file| %>
+    files.push($(".js-file-container[data-page-file=<%= page_file.id %>]").detach()[0]);
+  <% end -%>
+
+  $(".js-files ul").prepend(files);
+}());
