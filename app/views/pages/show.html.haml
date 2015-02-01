@@ -8,8 +8,8 @@
         &nbsp;
         .btn-group.js-run{role: "group"}
           %button.btn.btn-success{href:"#", type: "submit"}= admin? ? "Save" : "Run Code"
-          - #%button.btn.btn-success{href:"#"}
-          - #%span.glyphicon.glyphicon-new-window
+          %button.btn.btn-success{href:"#", type: "submit"}
+            %span.glyphicon.glyphicon-new-window
       - if admin?
         = f.input :name, label: false, placeholder: "Name"
         = f.input :page_type, as: :select, collection: Page.page_types, label: false
@@ -17,7 +17,7 @@
         %h2.panel-title   
           = @page.name
       .clear
-    .panel-body
+    .panel-body{class: "#{"no-sidebar" if !admin? && @user_page.page_files.length == 1}"}
       .code-sidebar.js-files
         %ul.nav.nav-pills.nav-stacked
           - @user_page.page_files.each do |file|

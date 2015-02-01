@@ -333,6 +333,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-sass
   byebug
+  coderay
   dotenv-rails
   factory_girl_rails
   guard

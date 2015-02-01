@@ -15,7 +15,7 @@
     events: {
       "click .js-file": "selectFile",
       "click a[data-remote]": "closeDropdown",
-      "submit": "save",
+      "submit": "saveAndRun",
       "change input[type=text]": "markChanges",
       "change select": "markChanges",
       "click [data-value=split]": "preferSplit",
@@ -24,7 +24,8 @@
 
     initialize: function() {
       var self = this;
-      Mousetrap.bind("ctrl+s", function(e) { self.save(e); });
+      Mousetrap.bind("ctrl+s", function(e) { self.saveAndRun(e); return false; });
+      Mousetrap.bind("backspace", function(e) { return false; });
     },
 
     closeDropdown: function(e) {
@@ -80,8 +81,8 @@
       }
     },
 
-    firstEditableAndDisplayable: function(file) {
-      this.$(".js-file[displayable][editable]")
+    firstEditableAndDisplayable: function() {
+      return this.$(".js-file[data-displayable][data-editable]")[0];
     },
 
     showResult: function(file) {
@@ -92,27 +93,40 @@
 
       } else {
         this.$(".result-area").empty();
+        if(this.firstEditableAndDisplayable()) {
+          this.showResult( $(this.firstEditableAndDisplayable()));
+        }
       }
     },
 
-    save: function(e) {
+    saveAndRun: function(e) {
+      var self = this;
+
+      this.save(function() {
+        self.showResult(self.currentFile());
+      });
+
+      $(".js-code-area").toggleClass("code-running");
+      if(!$(".js-code-area").hasClass("code-running")) {
+        this.editor.focus();
+      }
+
+      if(e) { e.preventDefault(); }
+    },
+
+    save: function(callback) {
       this.saveCurrentFile();
       var action = this.$el.attr("action");
-
-      var self = this;
 
       $.ajax({
         url: action,
         type: "PUT",
         data: this.$el.serialize()
       }).then(function() {
-        self.showResult(self.currentFile());
+       if(callback) {  callback(); }
       });
 
-      if(e) { e.preventDefault(); }
       this.unmarkChange();
-
-      $(".js-code-area").toggleClass("code-running");
     },
 
     preferFull: function(e) {
@@ -182,9 +196,9 @@
       var self = this;
       this.editor.commands.addCommand({
         name: "saveEditor",
-      bindky: { win: "Ctrl-S", mac: "Ctrl-S" },
+      bindKey: { win: "Ctrl-S", mac: "Ctrl-S" },
       exec: function(editor) {
-          self.save();
+          self.saveAndRun();
         }
       });
 

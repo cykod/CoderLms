@@ -38,11 +38,18 @@
 
 .code-wrapper {
   margin-left:210px;
+
 }
 
 .code-area {
   position:relative;
   border: 1px solid #DDD;
+}
+
+.panel-body.no-sidebar {
+
+  .code-sidebar { display:none; }
+  .code-wrapper { margin-left:0px; }
 
 }
 
@@ -111,4 +118,5 @@ h2.panel-title {
     .result-area { display:block; }
   }
 }
+
 

@@ -62,6 +62,7 @@ gem "rails_12factor", group: :production
 
 gem "puma"
 
+gem "coderay"
 gem "kramdown"
 
 gem "html5_validator"

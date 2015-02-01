@@ -42,6 +42,7 @@ class PageFilesController < CourseBaseController
   def get_all
     @lesson = @course_session.lesson(params[:lesson_id])
     @page = @lesson.page(params[:page_id].to_s)
+    @user_page = UserPage.fetch(@page,current_user)
   end
 
   def get_file
