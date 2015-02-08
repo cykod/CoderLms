@@ -23,7 +23,7 @@ class UserPageFilesController < CourseBaseController
    protected
 
   def get_page
-    @course_session = CourseSession.fetch(params[:session_id])
+    @course_session = CourseSession.for_user(current_user,params[:session_id])
     @lesson = @course_session.lesson(params[:lesson_id])
     @page = @lesson.page(params[:page_id])
   end
