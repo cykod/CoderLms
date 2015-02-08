@@ -1,2 +1,4 @@
 $(".modal.in").modal("hide");
 $("<%= j render partial: "/pages/page_file", locals: { page_file: @file } %>").insertBefore(".js-add-file-container");
+
+LessonEditor.editor.showLast();

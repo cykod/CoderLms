@@ -6,8 +6,7 @@
     $(".code-area").height($(window).height() - 170);
     Mousetrap.reset();
 
-    new EditorView({ el: $("#js-editor") }).render();
-
+    self.editor = new EditorView({ el: $("#js-editor") }).render();
   }
 
   var EditorView = Backbone.View.extend({
@@ -30,6 +29,11 @@
 
     closeDropdown: function(e) {
       $(".open").removeClass("open");
+    },
+
+    showLast: function() {
+      this.stashCurrentFile();
+      this.showFile(this.$(".js-file").last());
     },
 
     showFile: function(file) {
@@ -59,6 +63,11 @@
           editableAttr = file.attr('data-editable'),
           displayable = (typeof displayAttr !== typeof undefined && displayAttr !== false),
           editable = (typeof editableAttr !== typeof undefined && editableAttr !== false);
+
+      if(editable) { 
+        this.editor.focus();
+      }
+
 
       if(!editable) {
         this.showFull();

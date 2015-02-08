@@ -3,12 +3,12 @@
     .panel-heading
       .pull-right
         .btn-group.js-split-selector{role: "group"}
-          %button.btn.btn-default.active{type:"button", data: { value: "split" }} Split
-          %button.btn.btn-default{type:"button", data: { value: "full" }} Full
+          %button.btn.btn-default.active.btn-sm{type:"button", data: { value: "split" }} Split
+          %button.btn.btn-default.btn-sm{type:"button", data: { value: "full" }} Full
         &nbsp;
         .btn-group.js-run{role: "group"}
-          %button.btn.btn-success{href:"#", type: "submit"}= admin? ? "Save" : "Run Code"
-          %button.btn.btn-success{href:"#", type: "submit"}
+          %button.btn.btn-success.btn-sm{href:"#", type: "submit"}= admin? ? "Save" : "Run Code"
+          %button.btn.btn-success.btn-sm{href:"#", type: "submit"}
             %span.glyphicon.glyphicon-new-window
       - if admin?
         = f.input :name, label: false, placeholder: "Name"

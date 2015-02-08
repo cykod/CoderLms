@@ -12,10 +12,19 @@
     - if !@page.first?
       %a.btn.btn-default.navbar-btn{href: page_path(@page.position - 1)}
         %span.glyphicon.glyphicon-chevron-left
-        prev
+        = @page.higher_item.name
+    %a.btn.btn-default.navbar-btn{data: { toggle: "dropdown" }}
+      %span.glyphicon.glyphicon-menu-hamburger
+    %ul.dropdown-menu{role: "menu"}
+      - @lesson.pages.each do |page|
+        %li{class: page == @page ? "active" : ""}
+          %a{href: page_path(page.position)}
+            = "##{page.position}: #{page.name}"
+            - if page.page_type
+              %span.light= "(#{page.page_type.humanize})"
     - if !@page.last?
       %a.btn.btn-default.navbar-btn{href: page_path(@page.position + 1)}
-        next
+        = @page.lower_item.name
         %span.glyphicon.glyphicon-chevron-right
     - elsif admin?
       %a.btn.btn-default.navbar-btn{href: pages_path, data: { method: "post" }}
