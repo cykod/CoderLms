@@ -18,14 +18,15 @@
             - lesson.lesson_assignments.each do |lesson_assignment|
               = render partial: '/user_assignments/user_assignment', locals: { lesson_assignment: lesson_assignment}
           %hr
-        .panel-footer
-          %h4.panel-title Post a Question
-        .panel-body
-          = form_for :lesson_thread, url: session_lesson_threads_path(@course_session, lesson), remote: true do |f|
-            .form-group
-              = f.text_area :body, class: "form-control"
-            .pull-right
-              = f.submit "Post", class: "btn btn-default"
+        - if false
+          .panel-footer
+            %h4.panel-title Post a Question
+          .panel-body
+            = form_for :lesson_thread, url: session_lesson_threads_path(@course_session, lesson), remote: true do |f|
+              .form-group
+                = f.text_area :body, class: "form-control"
+              .pull-right
+                = f.submit "Post", class: "btn btn-default"
           
           
           
