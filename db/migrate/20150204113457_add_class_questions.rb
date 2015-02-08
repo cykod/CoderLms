@@ -4,9 +4,9 @@ class AddClassQuestions < ActiveRecord::Migration
       t.integer :lesson_id
       t.integer :course_session_id
       t.integer :user_id
-      t.boolean :, default: false
+      t.boolean :public, default: false
       t.text :body
-      t.text :y_html
+      t.text :body_html
       t.timestamps
     end
 
