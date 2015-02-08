@@ -10,6 +10,8 @@
           %button.btn.btn-success.btn-sm{href:"#", type: "submit"}= admin? ? "Save" : "Run Code"
           %button.btn.btn-success.btn-sm{href:"#", type: "submit"}
             %span.glyphicon.glyphicon-new-window
+          - if admin?
+            %a.btn.btn-success.btn-sm{href: page_path(@page, preview: true)} Preview
       - if admin?
         = f.input :name, label: false, placeholder: "Name"
         = f.input :page_type, as: :select, collection: Page.page_types, label: false

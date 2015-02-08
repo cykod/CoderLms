@@ -11,6 +11,8 @@ class PagesController < CourseBaseController
 
     @user_page = UserPage.fetch(@page,current_user)
 
+    @preview = params[:preview].present?
+
     render action: "show", layout: "lesson"
   end
 

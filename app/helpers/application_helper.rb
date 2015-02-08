@@ -1,7 +1,7 @@
 module ApplicationHelper
 
-  def page_path(page)
-    session_lesson_page_path(@course_session, @lesson.position, page)
+  def page_path(page,options = {})
+    session_lesson_page_path(@course_session, @lesson.position, page, options)
   end
 
   def pages_path
@@ -23,7 +23,7 @@ module ApplicationHelper
 
 
   def page_save_path(page)
-    if admin? 
+    if admin? && !@preview
       session_lesson_page_path(@course_session, @lesson.position, page.position) 
     else
       session_lesson_page_user_pages_path(@course_session, @lesson.position, page.position)
