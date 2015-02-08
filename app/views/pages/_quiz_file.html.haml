@@ -1,0 +1,9 @@
+%h3 Question ##{index}
+~ page_file.question.to_s.html_safe
+= hidden_field_tag "page[page_files_attributes][#{index}][id]", page_file.id
+%ul.answers
+- (page_file.answers||[]).shuffle.each do |answer|
+  %li.answer
+    %label
+      = radio_button_tag "page[page_files_attributes][#{index}][body]", answer
+      ~ answer.html_safe

@@ -1,0 +1,20 @@
+%h3 
+  Question ##{index}:
+  - if page_file.correct?
+    %span.correct Correct
+  - else
+    %span.incorrect Incorrect
+
+~ page_file.question.to_s.html_safe
+%ul.answers
+- (page_file.answers||[]).each do |answer|
+  - my_answer =  answer == page_file.body_resolved
+  %li.answer
+    %label
+      = radio_button_tag "page[page_files_attributes][#{index}][body]", answer, my_answer, disabled: true
+      ~ answer.html_safe
+      - if page_file.correct_answer?(answer)
+        %span.glyphicon.glyphicon-ok.correct
+      - elsif my_answer 
+        %span.glyphicon.glyphicon-remove.incorrect
+

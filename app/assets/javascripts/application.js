@@ -16,3 +16,5 @@
 //= require ace/mode-json
 //= require mousetrap
 //= require lesson_editor
+//= require lesson_slides
+//= require lesson_quiz

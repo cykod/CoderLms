@@ -1,0 +1,33 @@
+= simple_form_for @page, url: page_save_path(@page), html: { class: 'form-inline', id: "js-quiz" } do |f|
+  .panel.panel-default
+    .panel-heading
+      %h2.panel-title   
+        = @page.name
+      .clear
+
+  .quiz{class: @user_page.submitted? ? "submitted" : ""}
+    - if !@page.quiz_started?
+      %h3 Click start once the quiz has started
+      = link_to "Start Quiz", page_path(@page.position), class: 'btn btn-primary'
+    - elsif @user_page.submitted?
+      - if !@page.quiz_results?
+        %h3 Waiting for Quiz to finish..
+        %p Once the class has finished the quiz, click below to see results
+        = link_to "See Results", page_path(@page.position), class: 'btn btn-primary'
+      - else
+        - @user_page.page_files.to_a.each_with_index do |file,index|
+          %article.question{data: { question: index }}
+            = render partial: "/pages/quiz_file_answer", locals: { page_file: file, index: index + 1 }
+    - else
+      - @user_page.page_files.to_a.shuffle.each_with_index do |file,index|
+        %article.question{data: { question: index }}
+          = render partial: "/pages/quiz_file", locals: { page_file: file, index: index + 1 }
+      %article.done
+        %h3 Quiz Completed!
+        - if !@page.quiz_results?
+          %p Once the class has finished the quiz, click below to see results
+        = link_to "See Results", page_path(@page.position), class: 'btn btn-primary'
+      :javascript
+        LessonQuiz.init();
+
+

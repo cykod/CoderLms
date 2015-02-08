@@ -1,0 +1,5 @@
+- if @page.slide?
+  %article.slide.active~ @file.body_html_resolved.html_safe
+- else
+  %article.question.active
+    = render partial: "/pages/quiz_file", locals: { page_file: @file, index: @file.position }

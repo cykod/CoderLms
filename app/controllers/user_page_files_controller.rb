@@ -1,5 +1,7 @@
 class UserPageFilesController < CourseBaseController
 
+  layout false
+
   before_filter :get_page
   skip_before_filter :validate_course_access
   
@@ -10,7 +12,12 @@ class UserPageFilesController < CourseBaseController
 
     @file = @user_page.page_file(params[:id].to_s)
     
-    render text: @file.body_html_resolved, content_type: Mime::Type.lookup_by_extension(@file.extension)
+    if @page.editor?
+      render text: @file.body_html_resolved, content_type: Mime::Type.lookup_by_extension(@file.resolved_extension)
+    else
+      render action: "show", layout: "minimal"
+
+    end
   end
 
    protected

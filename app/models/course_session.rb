@@ -5,6 +5,8 @@ class CourseSession < ActiveRecord::Base
   has_many :user_course_sessions
   has_many :users, through: :user_course_sessions
 
+  has_many :lesson_threads
+
   attr_reader :user
 
   include PermalinkSupport
@@ -19,6 +21,12 @@ class CourseSession < ActiveRecord::Base
 
   def self.fetch(permalink)
     self.where(permalink: permalink).first
+  end
+
+  def threads_for(lesson)
+    scope = lesson_threads.for_lesson(lesson)
+    scope = scope.published? unless admin
+    scope
   end
 
   def for_user(user)

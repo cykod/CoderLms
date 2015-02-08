@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126032001) do
+ActiveRecord::Schema.define(version: 20150207205713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,27 @@ ActiveRecord::Schema.define(version: 20150126032001) do
     t.boolean "requires_url"
     t.boolean "requires_file"
     t.boolean "validate_url"
+  end
+
+  create_table "lesson_responses", force: :cascade do |t|
+    t.integer  "lesson_thread_id"
+    t.integer  "user_id"
+    t.integer  "position"
+    t.text     "body"
+    t.text     "body_html"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lesson_theads", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.integer  "course_session_id"
+    t.integer  "user_id"
+    t.boolean  "public",            default: false
+    t.text     "body"
+    t.text     "body_html"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -63,6 +84,8 @@ ActiveRecord::Schema.define(version: 20150126032001) do
     t.datetime "file_updated_at"
     t.text     "body"
     t.text     "body_html"
+    t.text     "question"
+    t.text     "answers",                           array: true
   end
 
   add_index "page_files", ["page_id"], name: "index_page_files_on_page_id", using: :btree
@@ -73,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150126032001) do
     t.string  "name"
     t.integer "position"
     t.string  "page_type"
+    t.string  "quiz_state", default: "unstarted"
   end
 
   add_index "pages", ["lesson_id"], name: "index_pages_on_lesson_id", using: :btree
@@ -104,11 +128,13 @@ ActiveRecord::Schema.define(version: 20150126032001) do
   add_index "user_course_sessions", ["user_id"], name: "index_user_course_sessions_on_user_id", using: :btree
 
   create_table "user_page_files", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "user_page_id"
-    t.integer "page_file_id"
-    t.text    "body"
-    t.text    "body_html"
+    t.integer  "user_id"
+    t.integer  "user_page_id"
+    t.integer  "page_file_id"
+    t.text     "body"
+    t.text     "body_html"
+    t.boolean  "correct"
+    t.datetime "created_at"
   end
 
   add_index "user_page_files", ["page_file_id"], name: "index_user_page_files_on_page_file_id", using: :btree
@@ -119,6 +145,7 @@ ActiveRecord::Schema.define(version: 20150126032001) do
     t.integer "page_id"
     t.integer "views",     default: 0
     t.string  "permalink"
+    t.boolean "submitted", default: false
   end
 
   add_index "user_pages", ["page_id"], name: "index_user_pages_on_page_id", using: :btree

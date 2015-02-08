@@ -1,0 +1,33 @@
+
+.quiz {
+  max-width:960px;
+  margin:0 auto;
+
+  &.submitted {
+    .question { 
+      display:block; 
+      border-bottom: 1px solid black;
+    }
+  }
+
+
+  .question {
+    padding: 20px 0px;
+    display:none;
+
+    &.active { display:block; }
+
+    .answer { list-style-type:none; }
+
+    .correct { color:green; }
+    .incorrect { color:red; }
+  }
+
+  .done {
+    display:none;
+
+    &.active { display:block; }
+  }
+
+
+}

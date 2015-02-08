@@ -5,6 +5,8 @@ class Lesson < ActiveRecord::Base
   has_many :pages, -> { order("position") }
   has_many :lesson_assignments
 
+  has_many :lesson_threads
+
   validates :course, presence: true
 
   acts_as_list scope: :course

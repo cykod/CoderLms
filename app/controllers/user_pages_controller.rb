@@ -9,13 +9,21 @@ class UserPagesController < CourseBaseController
 
     @user_page = UserPage.fetch(@page,current_user)
 
-    @user_page.update_attributes(page_params)
+    if !@page.quiz? || !@user_page.submitted? 
+      @user_page.submitted = true
+      @user_page.update_attributes(page_params)
+    end
 
     render nothing: true
   end
 
   def page_params
-    params.require(:page).permit(page_files_attributes: [ :id, :body ])
+    @page_params = params.require(:page).permit(page_files_attributes: [ :id, :body ])
+
+    if !@page_params[:page_files_attributes].is_a?(Array)
+      @page_params[:page_files_attributes] = @page_params[:page_files_attributes].values
+    end
+    @page_params
   end
 
 

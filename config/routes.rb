@@ -15,6 +15,10 @@ Rails.application.routes.draw do
         resource :user_pages, only: [ :update ]
         get ":username/*id" => "user_page_files#show", as: "user_page_file", format: false
       end
+
+      resources :threads, only: [ :create ] do
+        resources :responses, only: [ :create ]
+      end
     end
 
   end

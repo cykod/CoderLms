@@ -3,7 +3,7 @@ class UserPage < ActiveRecord::Base
   belongs_to :page
   belongs_to :user
 
-  has_many :user_page_files
+  has_many :user_page_files, dependent: :destroy
 
   accepts_nested_attributes_for :user_page_files
 

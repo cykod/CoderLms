@@ -1,0 +1,23 @@
+.js-slides
+  .panel.panel-default
+    .panel-heading
+      .pull-right
+        .btn-group.js-view-selector{role: "group"}
+          %button.btn.btn-default.active{type:"button", data: { value: "slides" }} Slides
+          %button.btn.btn-default{type:"button", data: { value: "sheet" }} Pages
+      %h2.panel-title   
+        = @page.name
+      .slide-tracker
+        %span.js-current-slide 1
+        = "/ #{@page.page_files.length}"
+        
+        
+      .clear
+  .slides
+    - @page.page_files.each_with_index do |file,index|
+      %article.slide{data: { slide: index }}
+        ~ file.body_html.html_safe
+
+
+  :javascript
+    LessonSlides.init();

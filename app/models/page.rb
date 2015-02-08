@@ -8,7 +8,22 @@ class Page < ActiveRecord::Base
 
   @@page_types = [ "editor", "slide", "quiz" ]
 
+  @@quiz_states = [ "unstarted", "started", "open" ]
+
+  def quiz?; self.page_type == "quiz"; end
+  def slide?; self.page_type == "slide"; end
+
+  def editor?; self.page_type == "editor"; end
+
+  def quiz_started?; self.quiz_state == "started" || self.quiz_state == "open"; end
+  def quiz_results?; self.quiz_state == "open"; end
+
   def self.page_types 
     @@page_types
   end
+
+  def self.quiz_states
+    @@quiz_states
+  end
+  
 end

@@ -1,7 +1,7 @@
 class Renderer 
 
 
-  def self.render(extension,src)
+  def self.render(page_type,extension,src)
   if extension == "md"
       self.markdown(src.to_s)
     else

@@ -36,6 +36,6 @@ class PagesController < CourseBaseController
   end
 
   def page_params
-    params.require(:page).permit(:name, :page_type, page_files_attributes: [ :id, :body ])
+    params.require(:page).permit(:name, :page_type, :quiz_state, page_files_attributes: [ :id, :body ])
   end
 end
