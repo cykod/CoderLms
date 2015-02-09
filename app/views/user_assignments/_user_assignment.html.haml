@@ -23,7 +23,7 @@
     - else
       = f.submit "Submitted", class: "btn", data: { disable_with: "Submitting" }
     .clear
-    - if user_assignment.validation_errors.present?
+    - if user_assignment.validate_url? && user_assignment.validation_errors.present?
       .alert.alert-warning
         = user_assignment.validation_errors.length
         = "validation errors, please resolve and resubmit"
