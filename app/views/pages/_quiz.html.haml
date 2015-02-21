@@ -1,11 +1,19 @@
-= simple_form_for @page, url: page_save_path(@page), html: { class: 'form-inline', id: "js-quiz" } do |f|
-  .panel.panel-default
-    .panel-heading
-      %h2.panel-title   
+.panel.panel-default
+  .panel-heading
+    %h2.panel-title   
+      - if admin?
+        = simple_form_for @page, url: admin_page_save_path(@page), html: { data: { remote: true }, class: 'form-inline' } do |f|
+          = @page.name
+          = f.input :quiz_state, as: :select, collection: Page.quiz_states, label: false
+          = f.submit "Save", class: 'btn btn-default', data: { disable_with: 'Saving...' }
+      - else
         = @page.name
-      .clear
+      .pull-right
+        %a.btn.btn-success.btn-sm{href: page_path(@page.position, editor: true)} Edit
+    .clear
 
-  .quiz{class: @user_page.submitted? ? "submitted" : ""}
+.quiz{class: @user_page.submitted? ? "submitted" : ""}
+  = simple_form_for @page, url: page_save_path(@page), html: { class: 'form-inline', id: "js-quiz" } do |f|
     - if !@page.quiz_started?
       %h3 Click start once the quiz has started
       = link_to "Start Quiz", page_path(@page.position), class: 'btn btn-primary'

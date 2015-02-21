@@ -5,6 +5,8 @@
         .btn-group.js-view-selector{role: "group"}
           %button.btn.btn-default.btn-sm.active{type:"button", data: { value: "slides" }} Slides
           %button.btn.btn-default.btn-sm{type:"button", data: { value: "sheet" }} Outline
+          - if admin?
+            %a.btn.btn-success.btn-sm{href: page_path(@page.position, editor: true)} Edit
       %h2.panel-title   
         = @page.name
       .slide-tracker

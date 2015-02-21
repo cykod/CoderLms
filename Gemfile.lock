@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/cykod/littlebigadmin.git
-  revision: 4a97e2b44b449687338b6b6c383a25792d9bfdee
+  revision: 223b8897819d376cbbb8303d3295087e7389dc6b
   branch: master
   specs:
     littlebigadmin (0.0.1)

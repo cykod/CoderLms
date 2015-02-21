@@ -1,4 +1,4 @@
-- if (!@preview && admin?) || @page.page_type == "editor"
+- if (@edit_course && admin?) || @page.page_type == "editor"
   = render partial: "editor"
 - elsif @page.page_type == "slide"
   = render partial: "slides"

@@ -1,9 +1,10 @@
 %h3 
   Question ##{index}:
-  - if page_file.correct?
-    %span.correct Correct
-  - else
-    %span.incorrect Incorrect
+  - if !admin?
+    - if page_file.correct?
+      %span.correct Correct
+    - else
+      %span.incorrect Incorrect
 
 ~ page_file.question.to_s.html_safe
 %ul.answers
@@ -15,6 +16,6 @@
       ~ answer.html_safe
       - if page_file.correct_answer?(answer)
         %span.glyphicon.glyphicon-ok.correct
-      - elsif my_answer 
+      - elsif my_answer && !admin?
         %span.glyphicon.glyphicon-remove.incorrect
 

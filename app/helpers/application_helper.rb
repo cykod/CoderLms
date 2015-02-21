@@ -18,13 +18,18 @@ module ApplicationHelper
 
 
   def user_page_file_path(page_file)
-    session_lesson_page_user_page_file_path(@course_session, @lesson.position, @page.position, @user_page.permalink, page_file.name)
+    permalink = (admin? && @edit_course) ? "base" : @user_page.permalink
+    session_lesson_page_user_page_file_path(@course_session, @lesson.position, @page.position,  permalink, page_file.name)
+  end
+
+  def admin_page_save_path(page)
+    session_lesson_page_path(@course_session, @lesson.position, page.position) 
   end
 
 
   def page_save_path(page)
-    if admin? && !@preview
-      session_lesson_page_path(@course_session, @lesson.position, page.position) 
+    if admin? && @edit_course
+      admin_page_save_path(page)
     else
       session_lesson_page_user_pages_path(@course_session, @lesson.position, page.position)
     end

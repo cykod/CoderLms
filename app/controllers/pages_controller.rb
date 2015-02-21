@@ -11,7 +11,7 @@ class PagesController < CourseBaseController
 
     @user_page = UserPage.fetch(@page,current_user)
 
-    @preview = params[:preview].present?
+    @edit_course = admin? && (params[:editor].present? || @page.page_files.length == 0)
 
     render action: "show", layout: "lesson"
   end

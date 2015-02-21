@@ -10,13 +10,14 @@
           %button.btn.btn-success.btn-sm{href:"#", type: "submit"}= admin? ? "Save" : "Run Code"
           %button.btn.btn-success.btn-sm{href:"#", type: "submit"}
             %span.glyphicon.glyphicon-new-window
-          - if admin?
-            %a.btn.btn-success.btn-sm{href: page_path(@page.position, preview: true)} Preview
-      - if admin?
+        - if admin?
+          - if @edit_course
+            %a.btn.btn-info.btn-sm{href: page_path(@page.position, preview: true)} Preview
+          - else
+            %a.btn.btn-info.btn-sm{href: page_path(@page.position, editor: true)} Edit
+      - if @edit_course
         = f.input :name, label: false, placeholder: "Name"
         = f.input :page_type, as: :select, collection: Page.page_types, label: false
-        - if @page.quiz?
-          = f.input :quiz_state, as: :select, collection: Page.quiz_states, label: false
       - else
         %h2.panel-title   
           = @page.name
@@ -24,7 +25,7 @@
     .panel-body{class: "#{"no-sidebar" if !admin? && @user_page.page_files.length == 1}"}
       .code-sidebar.js-files
         %ul.nav.nav-pills.nav-stacked
-          - @user_page.page_files.each do |file|
+          - @user_page.conditional_page_files(@edit_course).each do |file|
             = render partial: 'page_file', locals: { page_file: file }
           - if admin?
             %li.js-add-file-container{role:"presentation"}

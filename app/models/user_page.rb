@@ -24,16 +24,20 @@ class UserPage < ActiveRecord::Base
     find_or_create_by(page: page, user: user)
   end
 
+  def edit_page_files
+    self.page.page_files
+  end
+
   def page_files
-    if user.admin?
-      self.page.page_files
-    else
-      user_files = user_page_files.index_by(&:page_file_id)
-      self.page.page_files.map do |page_file|
-        page_file.override_user_page_file(user_files[page_file.id])
-        page_file
-      end
+    user_files = user_page_files.index_by(&:page_file_id)
+    self.page.page_files.map do |page_file|
+      page_file.override_user_page_file(user_files[page_file.id])
+      page_file
     end
+  end
+
+  def conditional_page_files(editor)
+    editor ? edit_page_files : page_files
   end
 
   def page_file(name)

@@ -8,9 +8,12 @@ class UserPageFilesController < CourseBaseController
   def show
     @username = params[:username].to_s
 
-    @user_page = UserPage.where(page: @page, permalink: @username).first
-
-    @file = @user_page.page_file(params[:id].to_s)
+    if @username == "base"
+      @file = @page.page_files.where(name: params[:id].to_s).first
+    else
+      @user_page = UserPage.where(page: @page, permalink: @username).first
+      @file = @user_page.page_file(params[:id].to_s)
+    end
     
     if @page.editor?
       render text: @file.body_html_resolved, content_type: Mime::Type.lookup_by_extension(@file.resolved_extension)
