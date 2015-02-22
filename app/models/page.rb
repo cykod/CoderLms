@@ -6,6 +6,9 @@ class Page < ActiveRecord::Base
 
   acts_as_list scope: :lesson
 
+  validates :page_type, presence: true
+  validates :name, presence: true
+
   @@page_types = [ "editor", "slide", "quiz" ]
 
   @@quiz_states = [ "unstarted", "started", "open" ]

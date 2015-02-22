@@ -9,8 +9,8 @@
   var SlideViewer = Backbone.View.extend({
 
     events: {
-
-
+      "click .js-slides": "showSlides",
+      "click .js-outline": "showOutline"
     },
 
     initialize: function() {
@@ -57,8 +57,25 @@
     },
 
     render: function() {
+      if(localStorage["coderlms_slides"] == "outline") { 
+        this.showOutline();
+      }
       this.activateSlide(0);
       return this;
+    },
+
+    showOutline: function() {
+      this.$(".js-slides-container").addClass("outline");
+      this.$(".js-slides").removeClass("active");
+      this.$(".js-outline").addClass("active");
+      localStorage["coderlms_slides"] = "outline";
+    },
+
+    showSlides: function() {
+      this.$(".js-slides-container").removeClass("outline");
+      this.$(".js-outline").removeClass("active");
+      this.$(".js-slides").addClass("active");
+      localStorage["coderlms_slides"] = "slides";
     }
 
   });

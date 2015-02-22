@@ -21,8 +21,8 @@ class Lesson < ActiveRecord::Base
     self.pages.where(position: position).first
   end
 
-  def add_page!
-    self.pages.create
+  def add_page!(options)
+    self.pages.create(options)
   end
 
   protected

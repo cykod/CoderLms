@@ -3,8 +3,8 @@
     .panel-heading
       .pull-right
         .btn-group.js-view-selector{role: "group"}
-          %button.btn.btn-default.btn-sm.active{type:"button", data: { value: "slides" }} Slides
-          %button.btn.btn-default.btn-sm{type:"button", data: { value: "sheet" }} Outline
+          %button.btn.btn-default.btn-sm.active.js-slides{type:"button"} Slides
+          %button.btn.btn-default.btn-sm.js-outline{type:"button"} Outline
           - if admin?
             %a.btn.btn-success.btn-sm{href: page_path(@page.position, editor: true)} Edit
       %h2.panel-title   
@@ -15,7 +15,7 @@
         
         
       .clear
-  .slides
+  .slides.js-slides-container
     - @page.page_files.each_with_index do |file,index|
       %article.slide{data: { slide: index }}
         ~ file.body_html.html_safe

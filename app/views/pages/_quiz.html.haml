@@ -1,6 +1,8 @@
 .panel.panel-default
   .panel-heading
     %h2.panel-title   
+      .pull-right
+        %a.btn.btn-success.btn-sm{href: page_path(@page.position, editor: true)} Edit
       - if admin?
         = simple_form_for @page, url: admin_page_save_path(@page), html: { data: { remote: true }, class: 'form-inline' } do |f|
           = @page.name
@@ -8,8 +10,6 @@
           = f.submit "Save", class: 'btn btn-default', data: { disable_with: 'Saving...' }
       - else
         = @page.name
-      .pull-right
-        %a.btn.btn-success.btn-sm{href: page_path(@page.position, editor: true)} Edit
     .clear
 
 .quiz{class: @user_page.submitted? ? "submitted" : ""}

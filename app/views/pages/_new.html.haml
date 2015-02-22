@@ -1,0 +1,16 @@
+.modal.fade.new-modal
+  = simple_form_for @page, url: session_lesson_pages_path(@course_session, @lesson.position), html: { data: { remote: true } } do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button{type: "button", class: "close", data: { dismiss: "modal" }}
+            %span &times;
+          %h4.modal-title Add Page
+        .modal-body
+          = f.input :name
+          = f.input :page_type, as: :select, collection: Page.page_types, label: false
+        .modal-footer
+          %button.btn.btn-default{type:"button", data: { dismiss: "modal" }} Close
+          %button.btn.btn-primary{type:"submit"} Submit
+
+

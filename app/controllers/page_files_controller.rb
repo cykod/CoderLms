@@ -13,6 +13,8 @@ class PageFilesController < CourseBaseController
   def create
     @file = @page.page_files.build(file_params)
 
+    @edit_course = true
+    
     if @file.save
       render action: "create"
     else

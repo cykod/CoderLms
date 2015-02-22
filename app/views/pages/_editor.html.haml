@@ -17,7 +17,6 @@
             %a.btn.btn-info.btn-sm{href: page_path(@page.position, editor: true)} Edit
       - if @edit_course
         = f.input :name, label: false, placeholder: "Name"
-        = f.input :page_type, as: :select, collection: Page.page_types, label: false
       - else
         %h2.panel-title   
           = @page.name

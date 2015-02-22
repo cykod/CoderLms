@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :sessions, path: "", only: [ :show, :create ] do
     resources :lessons do
-      resources :pages, only: [ :show, :create, :update, :destroy ] do
+      resources :pages do
         resources :page_files, only: [ :new, :create, :update, :destroy ] do
           put :up
           put :down

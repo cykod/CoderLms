@@ -7,7 +7,7 @@ class PagesController < CourseBaseController
   def show
     @page = @lesson.page(params[:id].to_s)
 
-    @page = @lesson.add_page! if !@page && admin?
+    #@page = @lesson.add_page! if !@page && admin?
 
     @user_page = UserPage.fetch(@page,current_user)
 
@@ -16,9 +16,13 @@ class PagesController < CourseBaseController
     render action: "show", layout: "lesson"
   end
 
+  def new
+    @page = Page.new
+  end
+
   def create
-    @page = @lesson.add_page! if !@page && admin?
-    redirect_to action: 'show', id: @page.position
+    @page = @lesson.add_page!(new_page_params) if !@page && admin?
+    render action: 'new' unless @page.valid? 
   end
 
   def update
@@ -35,6 +39,10 @@ class PagesController < CourseBaseController
 
   def get_lesson
     @lesson = @course_session.lesson(params[:lesson_id])
+  end
+
+  def new_page_params
+    params.require(:page).permit(:name, :page_type)
   end
 
   def page_params

@@ -1,0 +1,6 @@
+$(".modal.in").modal("hide");
+$(".new-modal").remove();
+$("body").append("<%= j render partial: "new" %>");
+
+$(".new-modal").modal({ show: true });
+

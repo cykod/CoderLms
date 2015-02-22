@@ -27,5 +27,5 @@
         = @page.lower_item.name
         %span.glyphicon.glyphicon-chevron-right
     - elsif admin?
-      %a.btn.btn-default.navbar-btn{href: pages_path, data: { method: "post" }}
+      %a.btn.btn-default.navbar-btn{href: new_session_lesson_page_path(@course_session, @lesson.position), data: { remote: true }}
         new page
