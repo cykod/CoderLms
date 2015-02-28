@@ -248,6 +248,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.2.0)
       json (~> 1.4)
+    remotipart (1.2.1)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -354,6 +355,7 @@ DEPENDENCIES
   rails-assets-backbone
   rails-assets-underscore
   rails_12factor
+  remotipart
   rspec
   rspec-rails
   sass-rails (~> 5.0)

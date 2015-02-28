@@ -52,7 +52,7 @@ class PageFilesController < CourseBaseController
   end
 
   def file_params
-    params.require(:page_file).permit(:name,:editable)
+    params.require(:page_file).permit(:name,:editable, :file)
   end
   
 end

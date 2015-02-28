@@ -10,8 +10,10 @@
           %h4.panel-title= lesson.name
         .panel-body
           = lesson.body_html.html_safe
-          - if lesson.pages.count > 0 || admin?
+          - if lesson.pages.count > 0
             = link_to "Open Lesson", session_lesson_path(@course_session,lesson.position), class: 'btn btn-primary'
+          - elsif admin?
+            = link_to "Create Page", new_session_lesson_page_path(@course_session, lesson.position), class: 'btn btn-primary', data: { remote: true } 
           %br
           %br
           %ul.list-group

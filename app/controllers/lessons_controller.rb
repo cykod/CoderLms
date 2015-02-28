@@ -11,7 +11,7 @@ class LessonsController < CourseBaseController
     @lesson = @course.lessons.build(lesson_params)
 
     if @lesson.save
-      redirect_to action: :show, id: @lesson.position
+      redirect_to session_path(@course_session.permalink)
     end
 
   end
@@ -19,9 +19,6 @@ class LessonsController < CourseBaseController
 
   def show
     @lesson = @course_session.lesson(params[:id].to_s)
-
-    @lesson.add_page! if !@lesson.page(1)
-
     redirect_to session_lesson_page_path(@course_session,@lesson.position,1)
   end
 

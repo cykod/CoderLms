@@ -1,5 +1,5 @@
 %li.js-file-container{role:"presentation", data: { page_file: page_file.id  }}
-  %a.js-file{data: { type: page_file.mode, editable: @edit_course || page_file.editable, displayable: page_file.displayable, url: user_page_file_path(page_file)}, href: "#", role: "button"}
+  %a.js-file{data: { type: page_file.mode, editable: @edit_course || page_file.editable, displayable: page_file.displayable, url: user_page_file_path(page_file)}, binary: page_file.binary?, href: "#", role: "button"}
     = page_file.name
     - if admin? || page_file.editable?
       = hidden_field_tag "page[page_files_attributes][][id]", page_file.id

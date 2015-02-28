@@ -1,5 +1,7 @@
 class UserPageFilesController < CourseBaseController
 
+  skip_before_filter :verify_authenticity_token
+
   layout false
 
   before_filter :get_page
@@ -14,8 +16,10 @@ class UserPageFilesController < CourseBaseController
       @user_page = UserPage.where(page: @page, permalink: @username).first
       @file = @user_page.page_file(params[:id].to_s)
     end
-    
-    if @page.editor?
+
+    if @file.binary?
+      redirect_to @file.file(:original)
+    elsif @page.editor?
       render text: @file.body_html_resolved, content_type: Mime::Type.lookup_by_extension(@file.resolved_extension)
     else
       render action: "show", layout: "minimal"

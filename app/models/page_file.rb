@@ -3,9 +3,18 @@ class PageFile < ActiveRecord::Base
   belongs_to :page
   belongs_to :lesson
 
+
+  before_validation :set_name_and_properties, on: :create
+
   before_create :set_meta
   before_save :set_body_html
   before_save :set_question_and_answers
+
+
+  attr_accessor :file_type
+
+  has_attached_file :file
+  validates_attachment_content_type :file, :content_type => /\A.*\Z/
 
   acts_as_list scope: :page
 
@@ -29,6 +38,10 @@ class PageFile < ActiveRecord::Base
     else
       self.extension
     end
+  end
+
+  def binary?
+    self.body.blank? && self.file?
   end
 
   def displayable
@@ -68,7 +81,7 @@ class PageFile < ActiveRecord::Base
   end
 
   def set_body_html
-    self.body_html = Renderer.render(self.page.page_type, self.extension, self.body)
+    self.body_html = Renderer.render(self.page.page_type, self.extension, self.body.to_s)
     true
   end
 
@@ -86,6 +99,61 @@ class PageFile < ActiveRecord::Base
     self.question = doc.to_html
     
     true
+  end
+
+  def set_name_and_properties
+    if file_file_name.present?
+      set_base_properties
+
+      if self.file_type == "text"
+        set_text_properties
+      end
+    elsif name.present?
+      self.file_content_type = PageFile.type_for_name(self.name)
+      set_base_properties
+    end
+  end
+
+
+  
+  @@mime_overrides = {
+    "application/json" => "text",
+    "application/xml" => "text",
+    "application/javascript" => "text"
+  }
+
+  @@type_overrides = {
+    "md" => "text/x-markdown",
+    "tmx" => "text/xml"
+  }
+
+  def self.type_for_name(name)
+    extension = name.split(".")[-1].to_s.downcase
+    @@type_overrides[extension] || 
+      Mime::Type.lookup_by_extension(extension).to_s
+  end
+
+
+
+  def set_base_properties
+    self.name = self.file_file_name if self.file_file_name.present?
+
+    if self.file_content_type = "application/octet/stream"
+      self.file_content_type = PageFile.type_for_name(self.name)
+    end
+
+    if @@mime_overrides[self.file_content_type]
+      self.file_type =  @@mime_overrides[self.file_content_type]
+    else 
+      self.file_type = self.file_content_type.split("/")[0]
+    end
+  end
+
+  def set_text_properties
+    txt = File.open(file.queued_for_write[:original].path).read
+    self.file_content_type = PageFile.type_for_name(self.name)
+    self.body = txt
+    file.clear
   end
 
 end
