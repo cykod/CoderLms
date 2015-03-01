@@ -1,7 +1,9 @@
 class LessonAssignment < ActiveRecord::Base
   belongs_to :lesson
+  belongs_to :course
 
   before_save :save_body_html
+  before_save :set_course
 
   has_many :user_assignments
 
@@ -29,5 +31,10 @@ class LessonAssignment < ActiveRecord::Base
         user_id: user.id
       )
     end
+  end
+
+
+  def set_course
+    self.course = self.lesson.course
   end
 end
