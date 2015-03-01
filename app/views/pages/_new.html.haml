@@ -9,6 +9,7 @@
         .modal-body
           = f.input :name
           = f.input :page_type, as: :select, collection: Page.page_types, label: false
+          = f.input :lesson_assignment_id, as: :select, collection: LessonAssignment.where(course_id: @course_session.course_id).all.to_a.sort_by { |la| la.name }
         .modal-footer
           %button.btn.btn-default{type:"button", data: { dismiss: "modal" }} Close
           %button.btn.btn-primary{type:"submit"} Submit

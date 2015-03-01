@@ -9,6 +9,12 @@ class LessonAssignment < ActiveRecord::Base
     "#{self.lesson.name} #{self.body}"
   end
 
+  def user_assignments_for(course_session)
+    users = course_session.user_course_sessions.where(show: true).pluck(:user_id)
+
+    user_assignments.where(user_id: users)
+  end
+
   def save_body_html
     self.body_html = Kramdown::Document.new(self.body).to_html.gsub(/^\<p\>(.*)\<\/p\>/,"\\1")
   end

@@ -1,8 +1,9 @@
 ;var LessonSlides = (function() {
   var self = {};
 
-  self.init = function() {
+  self.init = function(noOutline) {
     Mousetrap.reset();
+    this.noOutline = noOutline;
     new SlideViewer({ el: $(".js-slides") }).render();
   }
 
@@ -23,6 +24,17 @@
       this.currentSlide().removeClass("active");
       this.slide(index).addClass("active");
       this.$(".js-current-slide").html(index + 1);
+
+      $(".slide.active").height($(window).height() - $(".js-slides-container").offset().top - 10);
+
+      if( $(".slide.active").data("title")) {
+        $(".panel-title").text($(".slide.active").data("title"));
+
+      }
+
+      this.$(".slide.active iframe").each(function() {
+        $(this).attr("src",$(this).data("src"));
+      });
 
     },
 
@@ -57,7 +69,7 @@
     },
 
     render: function() {
-      if(localStorage["coderlms_slides"] == "outline") { 
+      if(!this.noOutline && localStorage["coderlms_slides"] == "outline") { 
         this.showOutline();
       }
       this.activateSlide(0);

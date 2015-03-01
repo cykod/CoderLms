@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150207205713) do
+ActiveRecord::Schema.define(version: 20150301003732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150207205713) do
     t.boolean "requires_url"
     t.boolean "requires_file"
     t.boolean "validate_url"
+    t.integer "course_id"
   end
 
   create_table "lesson_responses", force: :cascade do |t|
@@ -96,7 +97,8 @@ ActiveRecord::Schema.define(version: 20150207205713) do
     t.string  "name"
     t.integer "position"
     t.string  "page_type"
-    t.string  "quiz_state", default: "unstarted"
+    t.string  "quiz_state",           default: "unstarted"
+    t.integer "lesson_assignment_id"
   end
 
   add_index "pages", ["lesson_id"], name: "index_pages_on_lesson_id", using: :btree
@@ -122,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150207205713) do
     t.integer "course_id"
     t.integer "course_session_id"
     t.boolean "admin",             default: false
+    t.boolean "show",              default: true
   end
 
   add_index "user_course_sessions", ["course_id"], name: "index_user_course_sessions_on_course_id", using: :btree

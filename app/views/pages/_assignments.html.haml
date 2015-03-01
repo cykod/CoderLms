@@ -1,0 +1,17 @@
+- assignments =  @page.lesson_assignment.user_assignments_for(@course_session)
+.js-slides
+  .panel.panel-default
+    .panel-heading
+      .pull-right
+      %h2.panel-title   
+        = @page.name
+      .slide-tracker
+        %span.js-current-slide 1
+        = "/ #{assignments.length}"
+      .clear
+  .slides.js-slides-container
+    -assignments.each_with_index do |assignment,index|
+      %article.slide{data: { slide: index, title: assignment.user.name }}
+        %iframe.full-frame{ data: { src: assignment.url}}
+  :javascript
+    LessonSlides.init(true);

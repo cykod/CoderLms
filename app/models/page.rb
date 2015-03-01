@@ -1,5 +1,6 @@
 class Page < ActiveRecord::Base
   belongs_to :lesson
+  belongs_to :lesson_assignment
   has_many :page_files, -> { order("position ASC") }
 
   accepts_nested_attributes_for :page_files
@@ -9,7 +10,7 @@ class Page < ActiveRecord::Base
   validates :page_type, presence: true
   validates :name, presence: true
 
-  @@page_types = [ "editor", "slide", "quiz" ]
+  @@page_types = [ "editor", "slide", "quiz", "assignment" ]
 
   @@quiz_states = [ "unstarted", "started", "open" ]
 

@@ -42,7 +42,7 @@ class PagesController < CourseBaseController
   end
 
   def new_page_params
-    params.require(:page).permit(:name, :page_type)
+    params.require(:page).permit(:name, :page_type, :lesson_assignment_id)
   end
 
   def page_params
