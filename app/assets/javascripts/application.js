@@ -8,6 +8,7 @@
 //= require bootstrap-datepicker/core
 //= require ace/ace
 //= require ace/worker-html
+//= require ace/worker-javascript
 //= require ace/theme-chrome
 //= require ace/mode-javascript
 //= require ace/mode-html
@@ -19,3 +20,5 @@
 //= require lesson_editor
 //= require lesson_slides
 //= require lesson_quiz
+
+require("ace/config").set("workerPath", "/assets/ace");

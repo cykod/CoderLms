@@ -27,7 +27,7 @@
 
       $(".slide.active").height($(window).height() - $(".js-slides-container").offset().top - 10);
 
-      if( $(".slide.active").data("title")) {
+      if( $(".slide.active").data("title") !== undefined) {
         $(".panel-title").text($(".slide.active").data("title"));
 
       }
