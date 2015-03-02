@@ -2,6 +2,9 @@ class UserPageFilesController < CourseBaseController
 
   skip_before_filter :verify_authenticity_token
 
+  before_filter :set_cache_buster
+
+
   layout false
 
   before_filter :get_page

@@ -98,7 +98,7 @@
       var attr = file.attr('data-displayable');
 
       if(typeof attr !== typeof undefined && attr !== false) {
-        this.$(".result-area").html("<iframe src='" + file.data("url") + "?rand=" + Math.random() + "'></iframe>");
+        this.$(".result-area").html("<iframe src='" + file.data("url") + "'></iframe>");
 
       } else {
         this.$(".result-area").empty();
