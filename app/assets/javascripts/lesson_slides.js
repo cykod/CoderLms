@@ -69,7 +69,7 @@
     },
 
     render: function() {
-      if(!this.noOutline && localStorage["coderlms_slides"] == "outline") { 
+      if(!LessonSlides.noOutline && localStorage["coderlms_slides"] == "outline") { 
         this.showOutline();
       }
       this.activateSlide(0);

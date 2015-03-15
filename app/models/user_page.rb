@@ -43,7 +43,7 @@ class UserPage < ActiveRecord::Base
   def page_file(name)
     page_file = page.page_files.where(name: name).first
     user_file = user_page_files.where(page_file_id: page_file.id).first
-    page_file.override_user_page_file(user_file)
+    page_file.override_user_page_file(user_file) if !page.editor?  || page_file.editable?
     page_file
   end
 
