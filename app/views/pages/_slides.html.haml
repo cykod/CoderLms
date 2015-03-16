@@ -11,12 +11,12 @@
         = @page.name
       .slide-tracker
         %span.js-current-slide 1
-        = "/ #{@page.page_files.length}"
+        = "/ #{@page.content_files.length}"
         
         
       .clear
   .slides.js-slides-container
-    - @page.page_files.each_with_index do |file,index|
+    - @page.content_files.each_with_index do |file,index|
       %article.slide{data: { slide: index }}
         ~ file.body_html.html_safe
 

@@ -29,5 +29,9 @@ class Page < ActiveRecord::Base
   def self.quiz_states
     @@quiz_states
   end
+
+  def content_files
+    self.page_files.select(&:displayable)
+  end
   
 end

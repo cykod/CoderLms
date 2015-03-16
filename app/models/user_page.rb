@@ -36,6 +36,7 @@ class UserPage < ActiveRecord::Base
     end
   end
 
+
   def conditional_page_files(editor)
     editor ? edit_page_files : page_files
   end

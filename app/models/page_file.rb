@@ -23,13 +23,15 @@ class PageFile < ActiveRecord::Base
     "js" => "javascript", 
     "css" => "css",
     "md" => "markdown",
-    "json" => "json"
+    "json" => "json",
+    "txt" => "text",
+    "text" => "text"
   }
 
   @@display_modes = %w(html markdown text)
 
   def mode
-    @@modes[self.extension] || "text"
+    @@modes[self.extension] || "unknown"
   end
 
   def resolved_extension
