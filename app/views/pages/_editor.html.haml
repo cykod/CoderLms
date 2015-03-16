@@ -25,6 +25,7 @@
       .code-sidebar.js-files
         %ul.nav.nav-pills.nav-stacked
           - @user_page.conditional_page_files(@edit_course).each do |file|
+            = render partial: 'page_file', locals: { page_file: file }
           - if admin?
             %li.js-add-file-container{role:"presentation"}
               %a.js-add-file{href: new_session_lesson_page_page_file_path(@course_session, @lesson.position, @page.position), data: { remote: true }} + Add a File
