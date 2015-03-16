@@ -13,7 +13,10 @@
         = f.text_field :url, class: 'form-control', placeholder: 'URL', style: "width: 400px"
     - if lesson_assignment.requires_file?
       - if user_assignment.file?
-        = link_to image_tag(user_assignment.file(:thumb), height:64), user_assignment.file(:original)
+        - if user_assignment.image?
+          = link_to image_tag(user_assignment.file, height:64), user_assignment.file(:original), target: "_blank"
+        - else
+          = link_to user_assignment.file_file_name, user_assignment.file(:original), target: "_blank"
         = link_to "change", "#", class: 'change-image'
       .form-group.upload-file{class: user_assignment.file? ? "hidden" : ""}
         %label.sr-only{for: 'user_assignment_url' } Image

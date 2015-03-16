@@ -12,7 +12,8 @@ class UserAssignment < ActiveRecord::Base
   before_save :html5_validate_url
   before_create :check_is_late
 
-  has_attached_file :file, :styles =>  { :thumb => "128x128#" }
+  has_attached_file :file
+  validates_attachment_content_type :file, :content_type => /\A.*\Z/
 
   def check_url
     if self.lesson_assignment && self.lesson_assignment.requires_url? && self.url.blank?
@@ -27,6 +28,10 @@ class UserAssignment < ActiveRecord::Base
     uri.kind_of?(URI::HTTP)
   rescue URI::InvalidURIError
     false
+  end
+
+  def image?
+    self.file_content_type =~ /^image\//
   end
 
   def html5_validate_url

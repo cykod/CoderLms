@@ -20,5 +20,6 @@
 //= require lesson_editor
 //= require lesson_slides
 //= require lesson_quiz
+//= require home
 
 require("ace/config").set("workerPath", "/assets/ace");
