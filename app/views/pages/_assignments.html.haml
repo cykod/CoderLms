@@ -12,6 +12,7 @@
   .slides.js-slides-container
     -assignments.each_with_index do |assignment,index|
       %article.slide{data: { slide: index, title: assignment.user.name }}
-        %iframe.full-frame{ data: { src: assignment.url}}
+        = link_to assignment.url, assignment.url
+        - # %iframe.full-frame{ data: { src: assignment.url}}
   :javascript
     LessonSlides.init(true);
