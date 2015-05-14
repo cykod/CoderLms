@@ -23,8 +23,12 @@ class User < ActiveRecord::Base
     assignments_weight = 0
     return 0 if user_assignments.length == 0
     final = self.user_assignments.preload(:lesson_assignment).map do |ua|
-      assignments_weight += ua.lesson_assignment.weight
-      ua.grade * (ua.lesson_assignment.weight||0)
+      if ua.grade.present?
+        assignments_weight += ua.lesson_assignment.weight
+        ua.grade * (ua.lesson_assignment.weight||0)
+      else
+        0
+      end
     end.sum.to_f
 
     if assignments_weight > 0
