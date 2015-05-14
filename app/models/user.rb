@@ -18,4 +18,19 @@ class User < ActiveRecord::Base
 
     user.save && user
   end
+
+  def final_grade
+    assignments_weight = 0
+    return 0 if user_assignments.length == 0
+    final = self.user_assignments.preload(:lesson_assignment).map do |ua|
+      assignments_weight += ua.lesson_assignment.weight
+      ua.grade * (ua.lesson_assignment.weight||0)
+    end.sum.to_f
+
+    if assignments_weight > 0
+      (final / assignments_weight).round
+    else 
+      0
+    end
+  end
 end

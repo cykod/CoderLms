@@ -1,0 +1,3 @@
+= form_for ua, url: admin_model_item_path(:user_assignment,ua), html: { data: { remote: true }  } do |f|
+  = f.text_field :grade, autocomplete: false
+  = f.submit "Save", class:'button-green smaller', data: { disable_with: "Saving" }

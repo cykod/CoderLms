@@ -22,12 +22,35 @@ LittleBigAdmin.model :user do
         field :name
         field :username
         field :admin
+        field :final_grade
       end
 
       panel "Activity" do
         field :sign_in_count
         field :current_sign_in_at
         field :created_at
+      end
+    end
+
+    panel "Assignments" do
+      table object.user_assignments do |t|
+        t.column "Assignment" do |ua|
+          ua.lesson_assignment.name
+        end
+        t.column :late
+        t.column :validated do |ua|
+          ua.validation_errors.length > 0 ? true : false
+        end
+        t.column "Grade" do |ua|
+          render(partial: "/admin/user_grade", locals: { ua: ua })
+        end
+        t.column "Homework" do |ua|
+          if ua.lesson_assignment.requires_url?
+            link_to ua.url, ua.url, target: "_blank"
+          elsif ua.lesson_assignment.requires_file?
+            link_to ua.file.url, ua.file.url, target: "_blank"
+          end
+        end
       end
     end
   end

@@ -15,6 +15,10 @@ class UserAssignment < ActiveRecord::Base
   has_attached_file :file
   validates_attachment_content_type :file, :content_type => /\A.*\Z/
 
+  def name
+    "#{self.user.name} #{self.lesson_assignment.name}"
+  end
+
   def check_url
     if self.lesson_assignment && self.lesson_assignment.requires_url? && self.url.blank?
       errors.add(:url,'is missing')
