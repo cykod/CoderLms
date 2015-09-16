@@ -2,6 +2,8 @@ LittleBigAdmin.model :user_assignment do
 
   menu "User Assigments", section: "Models", priority: 20
 
+  base_scope { UserAssignment.order("id DESC") }
+
   index do
     linked_column :id
     column :user
